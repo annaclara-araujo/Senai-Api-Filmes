@@ -9,6 +9,7 @@ namespace api_filmes_senai.Context
         public Filme_Context(DbContextOptions<Filme_Context> options) : base(options) 
         { }
 
+        public DbSet <Usuario> Usuarios { get; set; }
         public DbSet <Genero> Genero { get; set; }
         public DbSet<Filme> Filme { get; set; }
 

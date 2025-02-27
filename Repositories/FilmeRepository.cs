@@ -8,7 +8,7 @@ namespace api_filmes_senai.Repositories
     public class FilmeRepository : IFilmeRepository
     {
         private readonly Filme_Context _context;
-        
+
         public FilmeRepository (Filme_Context contexto)
         {
             _context = contexto;
@@ -38,7 +38,20 @@ namespace api_filmes_senai.Repositories
 
         public List<Filme> ListarPorGenero(Guid idGenero)
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Filme> listaDeFilmesGenero = _context.Filme
+                    .Include(g => g.Genero)
+                    .Where(f => f.IdGenero == idGenero)
+                    .ToList();
+
+                return listaDeFilmesGenero;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public Filme BuscarPorId(Guid id)
@@ -56,7 +69,7 @@ namespace api_filmes_senai.Repositories
             }
         }
 
-        public void Cadastar(Filme novoFilme)
+        public void Cadastrar(Filme novoFilme)
         {
             try
             {
@@ -70,10 +83,7 @@ namespace api_filmes_senai.Repositories
             }
         }
 
-        public void Cadastrar(Filme novoFilme)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public void Deletar(Guid id)
         {
@@ -96,14 +106,13 @@ namespace api_filmes_senai.Repositories
             }
         }
 
-        public List<Filme> ListaPorGenero(Guid idGenero)
+        
+
+        public List<Filme> Listar()
         {
             try
             {
-                List<Filme> listaDeFilmes = (List<Filme>)_context.Filme
-                    .Include(g => g.Genero)
-                    .Where (f => f.IdGenero == idGenero)
-                    .ToList();
+                List<Filme> listaDeFilmes = _context.Filme.ToList();
                 return listaDeFilmes;
             }
             catch (Exception)
@@ -113,22 +122,6 @@ namespace api_filmes_senai.Repositories
             }
         }
 
-
-
-        public List<Filme> listaPorGenero (Guid idGenero)
-        {
-
-         
-            List<Filme> listaPorGenero = _context.Filme.ToList();
-            return listaPorGenero;
-
-        }
-
-
-
-
-
-
-
+        
     }
 }

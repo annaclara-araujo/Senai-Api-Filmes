@@ -1,6 +1,5 @@
 ﻿using api_filmes_senai.Domains;
 using api_filmes_senai.Interface;
-using api_filmes_senai.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +7,10 @@ namespace api_filmes_senai.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Produces("appication/json")]
+    [Produces("application/json")]
     public class FilmeController : ControllerBase
     {
+
         private readonly IFilmeRepository _filmeRepository;
 
         public FilmeController(IFilmeRepository filmeRepository)
@@ -42,7 +42,7 @@ namespace api_filmes_senai.Controllers
         {
             try
             {
-                _filmeRepository.Cadastar(novoFilme);
+                _filmeRepository.Cadastrar(novoFilme);
 
                 return Created();
             }
@@ -92,7 +92,6 @@ namespace api_filmes_senai.Controllers
 
 
         [HttpGet("BuscarPorId/{id}")]
-
         public IActionResult GetById(Guid id)
         {
             try
@@ -108,14 +107,13 @@ namespace api_filmes_senai.Controllers
 
         }
 
-        [HttpGet ("{idGenero}")]
-        public IActionResult Get(Guid idGenero)
+        [HttpGet("ListarPorGenero/{Id}")]
+        public IActionResult GetByGenero(Guid Id)
         {
             try
             {
-                List<Filme> listaPorGenero = _filmeRepository.Listar();
-
-                return Ok(listaPorGenero);
+                List<Filme> ListarPorGenero = _filmeRepository.ListarPorGenero(Id);
+                return Ok(ListarPorGenero);
             }
             catch (Exception e)
             {
@@ -125,12 +123,5 @@ namespace api_filmes_senai.Controllers
             }
 
         }
-
-
-
-
-
-
-
     }
 }

@@ -14,6 +14,7 @@ builder.Services.AddDbContext<Filme_Context>(options =>
 //Adicionar o repositorio e a interface ao container de injecao de dependencia
 builder.Services.AddScoped<IGeneroRepository, GeneroRepository>(); 
 builder.Services.AddScoped<IFilmeRepository, FilmeRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 //Adicionar o servico de Controllers
 builder.Services.AddControllers();
@@ -25,9 +26,6 @@ app.MapControllers();
 
 app.Run();
 
-// Adiciona o contexto do banco de dados (exemplo com SQL Server)
-builder.Services.AddDbContext<Filme_Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 
