@@ -1,6 +1,7 @@
 ﻿using api_filmes_senai.Domains;
 using api_filmes_senai.Interface;
 using api_filmes_senai.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,12 @@ namespace api_filmes_senai.Controllers
 
             }
         }
-
+        /// <summary>
+        /// Endpoint para cadastrar novo Genro
+        /// </summary>
+        /// <param name="novoGenero"></param>
+        /// <returns></returns>
+        [Authorize]
         [HttpPost]
 
         public IActionResult Post(Genero novoGenero)
@@ -51,7 +57,11 @@ namespace api_filmes_senai.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Endpoint para deletar genero cadastrado
+        /// </summary>
+        /// <param name="id">Id do Genero</param>
+        /// <returns>null</returns>
         [HttpDelete("{id}")]
 
         public IActionResult Delete(Guid id)
@@ -69,8 +79,13 @@ namespace api_filmes_senai.Controllers
             }
 
         }
-
-        [HttpPut ("{id}")]
+        /// <summary>
+        /// Endpoint para Atualizar genero cadastrado
+        /// </summary>
+        /// <param name="id"> Id do Genero</param>
+        /// <param name="genero"> Genero cadastrado</param>
+        /// <returns> Atualização do Genero </returns>
+        [HttpPut("{id}")]
 
         public IActionResult Put(Guid id, Genero genero)
         {
@@ -86,8 +101,12 @@ namespace api_filmes_senai.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint para buscar um Gênero pelo seu id
+        /// </summary>
+        /// <param name="id"> Id do Genero Buscado</param>
+        /// <returns>Genero Buscado<returns>
         [HttpGet("BuscarPorId/{id}")]
-
         public IActionResult GetById(Guid id)
         {
             try
@@ -102,8 +121,6 @@ namespace api_filmes_senai.Controllers
             }
 
         }
-
-
 
 
     }

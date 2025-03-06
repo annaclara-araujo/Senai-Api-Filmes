@@ -49,7 +49,7 @@ namespace api_filmes_senai.Repositories
             {
                 Usuario usuarioBuscado = _context.Usuarios.Find(id)!;
 
-                if (usuarioBuscado == null)
+                if (usuarioBuscado != null)
                 {
                     return usuarioBuscado;
                 }
