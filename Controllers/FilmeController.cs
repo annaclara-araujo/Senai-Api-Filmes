@@ -1,5 +1,6 @@
 ﻿using api_filmes_senai.Domains;
 using api_filmes_senai.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,6 +18,11 @@ namespace api_filmes_senai.Controllers
         {
             _filmeRepository = filmeRepository;
         }
+
+        /// <summary>
+        /// Endpoint para lisra filmes 
+        /// </summary>
+        /// <returns></returns>
 
         [HttpGet]
         public IActionResult Get()
@@ -36,7 +42,13 @@ namespace api_filmes_senai.Controllers
 
         }
 
+        /// <summary>
+        /// Endpoint para cadastrar novo Filme
+        /// </summary>
+        /// <param name="novoFilme"></param>
+        /// <returns></returns>
 
+        [Authorize]
         [HttpPost]
         public IActionResult Post(Filme novoFilme)
         {
@@ -54,7 +66,13 @@ namespace api_filmes_senai.Controllers
 
         }
 
-
+        /// <summary>
+        /// Endpoint para deletar filme
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        
+        [Authorize]
         [HttpDelete("{id}")]
 
         public IActionResult Delete(Guid id)
@@ -73,7 +91,14 @@ namespace api_filmes_senai.Controllers
 
         }
 
+        /// <summary>
+        /// Endpoint para Atualizar filme
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="filme"></param>
+        /// <returns></returns>
 
+        [Authorize]
         [HttpPut("{id}")]
 
         public IActionResult Put(Guid id, Filme filme)
@@ -90,7 +115,11 @@ namespace api_filmes_senai.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Endpoint para bucar por Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("BuscarPorId/{id}")]
         public IActionResult GetById(Guid id)
         {
@@ -107,6 +136,12 @@ namespace api_filmes_senai.Controllers
 
         }
 
+        /// <summary>
+        /// Endpoint para Bucar por Genero
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Authorize]
         [HttpGet("ListarPorGenero/{Id}")]
         public IActionResult GetByGenero(Guid Id)
         {

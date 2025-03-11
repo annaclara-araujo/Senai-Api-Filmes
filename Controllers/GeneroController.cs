@@ -18,8 +18,11 @@ namespace api_filmes_senai.Controllers
         {
             _generoRepository = generoRepository;
         }
-        
-        
+        /// <summary>
+        /// Endpoint para Listar Genero
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet]
         public IActionResult Get()
         {
@@ -62,6 +65,8 @@ namespace api_filmes_senai.Controllers
         /// </summary>
         /// <param name="id">Id do Genero</param>
         /// <returns>null</returns>
+
+        [Authorize]
         [HttpDelete("{id}")]
 
         public IActionResult Delete(Guid id)
@@ -85,6 +90,8 @@ namespace api_filmes_senai.Controllers
         /// <param name="id"> Id do Genero</param>
         /// <param name="genero"> Genero cadastrado</param>
         /// <returns> Atualização do Genero </returns>
+
+       
         [HttpPut("{id}")]
 
         public IActionResult Put(Guid id, Genero genero)

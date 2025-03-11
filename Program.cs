@@ -10,6 +10,19 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
+builder.Services
+    .AddControllers()
+        .AddNewtonsoftJson(options =>
+        {
+            // Ignora os loopings nas consultas
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            // Ignora valores nulos ao fazer junções nas consultas
+            options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+        }
+    );
+
+
 // Adiciona o contexto do banco de dados (exemplo com SQL Server)
 builder.Services.AddDbContext<Filme_Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -81,6 +94,31 @@ builder.Services.AddSwaggerGen(options =>
     // using System.Reflection;
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    //Usando a autenticaçao no Swagger
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Value: Bearer TokenJWT ",
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 
 

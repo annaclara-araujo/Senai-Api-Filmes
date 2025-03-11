@@ -3,6 +3,7 @@ using System.Security.Claims;
 using api_filmes_senai.Domains;
 using api_filmes_senai.DTO;
 using api_filmes_senai.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -21,8 +22,14 @@ namespace api_filmes_senai.Controllers
             _usuarioRepository = usuarioRepository;
         }
 
+        /// <summary>
+        /// Endpoint para Login
+        /// </summary>
+        /// <param name="LoginDTO"></param>
+        /// <returns></returns>
+        
         [HttpPost]
-
+        
         public IActionResult Login(LoginDTO LoginDTO)
         {
             try
